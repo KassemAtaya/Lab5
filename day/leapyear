@@ -1,0 +1,73 @@
+/******************************************************************************
+
+Write a program that prints the day number of the year, given the date in the form month-day-year.
+For example, if the input is 1-1-2006, the day number is 1; if the input is 12-25-2006, the day number is 359.
+The program should check for a leap year. A year is  a leap year if it is divisible by 4, but not divisible by 100.
+For example, 1992 and 2008 are divisibe by 4, but not by 100. A year is divisible by 100 is a leap year if it is also divisible by 400. 
+for example, 1600 and 2000 are divisible by 400. How-ever, 1800 is not a leap year because 1800 is not divisible by 400.
+
+*******************************************************************************/
+
+#include <iostream>
+#include <string>
+using namespace std;
+
+bool leap_year(int);
+int mdy(int, int, int);
+
+int main(){
+    string date;
+    int month,day,year,leap,number;
+    size_t pos, p;
+
+    cout<<"Enter date (month-day-year): ";
+    getline(cin, date);
+    pos = date.find('-');
+    p = date.find('-',pos +1);
+    
+    
+    month = stoi(date.substr(0, pos));
+    day = stoi(date.substr(pos+1,p));
+    year = stoi(date.substr(p+1));
+    
+    leap = leap_year(year);
+    number = mdy(month,day,leap);
+    
+    cout<<"The number of days is in the year given : "<<number<<endl;
+    if(leap ==1)cout<<"The year entered is a leap year.";
+    if(leap == 0)cout<<"The year entered is not a leap year.";
+    return 0;
+    
+}
+
+bool leap_year(int year){
+    if(year % 4 == 0 and (year % 100 != 0 or year % 400 == 0))return true;
+    return false;
+}
+
+
+int mdy(int month, int day, int leap){
+    if(month == 1)return day;
+    if(month == 2)return 31+day;
+    if(month == 3)return 59+day+leap;
+    if(month == 4)return 90+day+leap;
+    if(month == 5)return 120+day+leap;
+    if(month == 6)return 151+day+leap;
+    if(month == 7)return 181+day+leap;
+    if(month == 8)return 212+day+leap;
+    if(month == 9)return 243+leap+day;
+    if(month == 10)return 273+leap+day;
+    if(month == 11)return 304+day+leap;
+    if(month == 12)return 334+day+leap;
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
